@@ -7,7 +7,7 @@ RPi.GPIO.setmode(RPi.GPIO.BCM)
 
 
 Redled = LED(14)
-Yellowled = LED(15)
+Blueled = LED(15)
 Greenled = LED(18)
 
 window = Tk()
@@ -21,15 +21,21 @@ def RedLed():
         ledButton1["text"] = "Turn RED LED on"
     else:
         Redled.on()
+        Blueled.off()
+        Greenled.off()
         ledButton1["text"] = "Turn RED Led off"
 
-def YellowLed():
-    if Yellowled.is_lit:
-        Yellowled.off()
-        ledButton2["text"] = "Turn Yellow Led on"
+
+def BlueLed():
+    if Blueled.is_lit:
+        Blueled.off()
+        ledButton2["text"] = "Turn Blue Led on"
     else:
-        Yellowled.on()
-        ledButton2["text"] = "Turn Yellow Led off"
+        Blueled.on()
+        Redled.off()
+        Greenled.off()
+        ledButton2["text"] = "Turn Blue Led off"
+
 
 def GreenLed():
     if Greenled.is_lit:
@@ -37,7 +43,10 @@ def GreenLed():
         ledButton3["text"] = "Turn Green Led on"
     else:
         Greenled.on()
+        Redled.off()
+        Blueled.off()
         ledButton3["text"] = "Turn Green Led off"
+      
 
 def close():
     RPi.GPIO.cleanup()
@@ -48,16 +57,16 @@ def close():
 
 
 ledButton1 = Radiobutton(window,text="RED LED",font=myFont, command= RedLed, bg= 'red', height=3, width=20)
-ledButton1.grid(row=1,column=2)
+ledButton1.grid(row=1,column=3)
 
-ledButton2 = Radiobutton(window,text="Yellow LED", font=myFont, command= YellowLed, bg= 'yellow', height=3, width=20)
-ledButton2.grid(row=2,column=2)
+ledButton2 = Radiobutton(window,text="Blue LED", font=myFont, command= BlueLed, bg= 'blue', height=3, width=20)
+ledButton2.grid(row=2,column=3)
 
 ledButton3 = Radiobutton(window,text="GREEN LED", font=myFont, command= GreenLed, bg= 'green', height=3, width=20)
-ledButton3.grid(row=3,column=2)
+ledButton3.grid(row=3,column=3)
 
 exitButton = Radiobutton(window,text ="Exit Button", font=myFont, command= close, bg='white',height=3,width=20)
-exitButton.grid(row =4,column=2)
+exitButton.grid(row =4,column=3)
 
 window.protocol("WM_DELETE_WINDOW", close)
 window.mainloop()
